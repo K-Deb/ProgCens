@@ -34,6 +34,6 @@ rpc2unif = function(n, m = NULL, R = NULL, prob = NULL, set_seed = NULL)
   for(i in 1:m) V[i] = W[i]^(1/(i+sum((R[(m-i+1):m]))))
 
   for (i in 1:m) U[i] = 1-prod((V[(m-i+1):m]))
-  return(data.frame(U = U, R = round(R)))
+  return(rbind(U = U, R = round(R)))
 }
 
