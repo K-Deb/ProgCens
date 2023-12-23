@@ -9,7 +9,7 @@ rpc2(n, m = NULL, R = NULL, prob = NULL, QF, ..., set_seed = NULL)
 \arguments{
 \item{n}{Total number of items placed on test at time zero}
 
-\item{m}{Number of required failure}
+\item{m}{Number of required failures}
 
 \item{R}{Prefixed censoring scheme}
 

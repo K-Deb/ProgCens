@@ -3,5 +3,6 @@
 export(dGR)
 export(rpc2)
 export(rpc2unif)
+export(rpffc2)
 importFrom(stats,rbinom)
 importFrom(stats,runif)
