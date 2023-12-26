@@ -4,7 +4,7 @@
 \alias{rpffc2}
 \title{Simulating a progressively first-failure type-II censored sample from a univariate distribution}
 \usage{
-rpffc2(n, m = NULL, k, R = NULL, prob = NULL, QF, ..., set_seed = NULL)
+rpffc2(n, m = NULL, k = 1, R = NULL, prob = NULL, QF, ..., set_seed = NULL)
 }
 \arguments{
 \item{n}{Total number of groups placed on test at time zero}

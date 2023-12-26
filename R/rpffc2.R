@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-rpffc2 = function(n, m = NULL, k, R = NULL, prob = NULL, QF, ..., set_seed = NULL)
+rpffc2 = function(n, m = NULL, k = 1, R = NULL, prob = NULL, QF, ..., set_seed = NULL)
 {
   stopifnot("QF must be a quantile function" = is.function(QF))
   U = rpc2unif(n = n, m = m, R = R, prob = prob, set_seed = set_seed)
