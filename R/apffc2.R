@@ -1,4 +1,4 @@
-#' Title
+#' Simulating an adaptive progressively first-failure type-II censored sample from a univariate distribution
 #'
 #' @param n Total number of groups placed on test at time zero
 #' @param m Number of required failures
