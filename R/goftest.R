@@ -13,7 +13,8 @@
 #' @examples
 AdapGoF = function(data, CDF, k = 1, norm_approx = T, ...)
 {
-  stopifnot("data set must be matrix" = is.matrix(data))
+  if (! is.matrix(data) & (nrow(data) != 2))
+    stop("Data must be matrix with 2 rows")
   stopifnot("CDF must be a distribution function" = is.function(CDF))
   S = data[1,]
   m = length(S)
@@ -21,8 +22,14 @@ AdapGoF = function(data, CDF, k = 1, norm_approx = T, ...)
   n = sum(R) + m
   if (norm_approx)
   {
-    V = CDF(S, ...)
-    Y = qnorm(V)
+    if (as.character(substitute(CDF)) != "pnorm")
+    {
+      Y = qnorm(CDF(S, ...))
+    }else
+    {
+      Y = S
+    }
+
     negLLY = function(theta, x)
     {
       dd = (k * (R + 1)) - 1
@@ -51,5 +58,5 @@ AdapGoF = function(data, CDF, k = 1, norm_approx = T, ...)
   for (j in 1:m) Prod2 <- Prod2 * beta((j + sum(R[(m - j + 1):(m)]) + (1/k)), 1)/beta((j + sum(R[(m - j + 1):(m)])), 1)
 
   KS <- max(max(c(Alpha, 1-Prod2)-U),max(U-c(0,Alpha)))
-  return(list(AD = Anderson, CVM = Cramer, KS = KS))
+  return(list(KS = KS, CVM = Cramer, AD = Anderson))
 }
