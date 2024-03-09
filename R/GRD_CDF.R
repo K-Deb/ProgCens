@@ -17,7 +17,7 @@
 #'
 #' @examples
 
-
+#' @rdname GR
 dGR = function(x, shape, scale = 1, rate = 1/scale, log = FALSE)
 {
   scale = 1/rate
@@ -27,7 +27,7 @@ dGR = function(x, shape, scale = 1, rate = 1/scale, log = FALSE)
     return(log(dens))
   }else { return(dens)}
 }
-#' @rdname dGR
+#' @rdname GR
 pGR = function(q, shape, scale = 1, rate = 1/scale, lower.tail=TRUE, log.p=FALSE)
 {
   scale = 1/rate
@@ -43,7 +43,7 @@ pGR = function(q, shape, scale = 1, rate = 1/scale, lower.tail=TRUE, log.p=FALSE
     return(log(1-cdf))
   }else { return(log(cdf))}
 }
-#' @rdname dGR
+#' @rdname GR
 qGR = function(p, shape, scale = 1, rate = 1/scale, lower.tail=TRUE)
 {
   scale = 1/rate
@@ -51,7 +51,7 @@ qGR = function(p, shape, scale = 1, rate = 1/scale, lower.tail=TRUE)
   qf = sqrt((1/scale ^2) * log((1 - p ^ (1/shape)) ^ (-1)))
   return(qf)
 }
-#' @rdname dGR
+#' @rdname GR
 rGR = function(n, shape, scale = 1, rate = 1/scale)
 {
   scale = 1/rate
