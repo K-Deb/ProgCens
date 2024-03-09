@@ -11,27 +11,41 @@
 #' @param lower.tail logical; if \code{TRUE}
 #' @param log logical
 #' @param log.p logical
-#'
+#' @name GR
+NULL
+#> NULL
 #' @return
 #' @export
 #'
 #' @examples
 
 #' @rdname GR
-dGR = function(x, shape, scale = 1, rate = 1/scale, log = FALSE)
+#' @export
+dGR = function(x, shape, rate = 1, scale = 1/rate, log = FALSE)
 {
-  scale = 1/rate
-  dens = 2*shape*scale^2*x*exp(-scale^2*x^2)*(1-exp(-scale^2*x^2))^(shape-1)
+  if (!missing(rate) && !missing(scale)) {
+    if (abs(rate * scale - 1) < 1e-15)
+      warning("specify 'rate' or 'scale' but not both")
+    else stop("specify 'rate' or 'scale' but not both")
+  }
+  rate = 1/scale
+  dens = 2 * shape * rate ^ 2 * x * exp(- (rate * x) ^ 2) * (- expm1(- (rate * x) ^ 2)) ^ (shape - 1)
   if(log)
   {
     return(log(dens))
   }else { return(dens)}
 }
 #' @rdname GR
-pGR = function(q, shape, scale = 1, rate = 1/scale, lower.tail=TRUE, log.p=FALSE)
+#' @export
+pGR = function(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE)
 {
-  scale = 1/rate
-  cdf = (1-exp(-scale^2*q^2))^shape
+  if (!missing(rate) && !missing(scale)) {
+    if (abs(rate * scale - 1) < 1e-15)
+      warning("specify 'rate' or 'scale' but not both")
+    else stop("specify 'rate' or 'scale' but not both")
+  }
+  rate = 1/scale
+  cdf = (- expm1(- (rate * q) ^ 2)) ^ shape
   if(isTRUE(lower.tail)==T & isTRUE(log.p)==F)
   {
     return(cdf)
@@ -44,17 +58,29 @@ pGR = function(q, shape, scale = 1, rate = 1/scale, lower.tail=TRUE, log.p=FALSE
   }else { return(log(cdf))}
 }
 #' @rdname GR
-qGR = function(p, shape, scale = 1, rate = 1/scale, lower.tail=TRUE)
+#' @export
+qGR = function(p, shape, rate = 1, scale = 1/rate, lower.tail=TRUE)
 {
-  scale = 1/rate
+  if (!missing(rate) && !missing(scale)) {
+    if (abs(rate * scale - 1) < 1e-15)
+      warning("specify 'rate' or 'scale' but not both")
+    else stop("specify 'rate' or 'scale' but not both")
+  }
+  rate = 1/scale
   if(!lower.tail) {p = 1 - p}
-  qf = sqrt((1/scale ^2) * log((1 - p ^ (1/shape)) ^ (-1)))
+  qf = sqrt((1/rate ^2) * log((1 - p ^ (1/shape)) ^ (-1)))
   return(qf)
 }
 #' @rdname GR
-rGR = function(n, shape, scale = 1, rate = 1/scale)
+#' @export
+rGR = function(n, shape, rate = 1, scale = 1/rate)
 {
-  scale = 1/rate
-  out = qGR(runif(n), shape = shape, scale = scale, rate = rate)
+  if (!missing(rate) && !missing(scale)) {
+    if (abs(rate * scale - 1) < 1e-15)
+      warning("specify 'rate' or 'scale' but not both")
+    else stop("specify 'rate' or 'scale' but not both")
+  }
+  rate = 1/scale
+  out = qGR(runif(n), shape = shape, rate = rate)
   return(out)
 }

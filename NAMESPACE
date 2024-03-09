@@ -2,6 +2,9 @@
 
 export(AdapGoF)
 export(dGR)
+export(pGR)
+export(qGR)
+export(rGR)
 export(rapffc2)
 export(rpc2unif)
 export(rpffc2)
