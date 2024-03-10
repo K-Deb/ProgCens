@@ -11,6 +11,7 @@
 #' @param lower.tail logical; if \code{TRUE}
 #' @param log logical
 #' @param log.p logical
+#' @importFrom VGAM dgenray pgenray qgenray rgenray
 #' @name GR
 NULL
 #> NULL
@@ -29,11 +30,7 @@ dGR = function(x, shape, rate = 1, scale = 1/rate, log = FALSE)
     else stop("specify 'rate' or 'scale' but not both")
   }
   rate = 1/scale
-  dens = 2 * shape * rate ^ 2 * x * exp(- (rate * x) ^ 2) * (- expm1(- (rate * x) ^ 2)) ^ (shape - 1)
-  if(log)
-  {
-    return(log(dens))
-  }else { return(dens)}
+  return(dgenray(x, scale = 1/rate, shape = shape, log = log))
 }
 #' @rdname GR
 #' @export
@@ -45,21 +42,11 @@ pGR = function(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FA
     else stop("specify 'rate' or 'scale' but not both")
   }
   rate = 1/scale
-  cdf = (- expm1(- (rate * q) ^ 2)) ^ shape
-  if(isTRUE(lower.tail)==T & isTRUE(log.p)==F)
-  {
-    return(cdf)
-  }else if (isTRUE(lower.tail)==F & isTRUE(log.p)==F)
-  {
-    return(1-cdf)
-  }else if (isTRUE(lower.tail)==F & isTRUE(log.p)==T)
-  {
-    return(log(1-cdf))
-  }else { return(log(cdf))}
+  return(pgenray(q, scale = 1/rate, shape = shape, lower.tail = lower.tail, log.p = log.p))
 }
 #' @rdname GR
 #' @export
-qGR = function(p, shape, rate = 1, scale = 1/rate, lower.tail=TRUE)
+qGR = function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE)
 {
   if (!missing(rate) && !missing(scale)) {
     if (abs(rate * scale - 1) < 1e-15)
@@ -67,9 +54,7 @@ qGR = function(p, shape, rate = 1, scale = 1/rate, lower.tail=TRUE)
     else stop("specify 'rate' or 'scale' but not both")
   }
   rate = 1/scale
-  if(!lower.tail) {p = 1 - p}
-  qf = sqrt((1/rate ^2) * log((1 - p ^ (1/shape)) ^ (-1)))
-  return(qf)
+  return(qgenray(p, scale = 1/rate, shape = shape, lower.tail = lower.tail, log.p = log.p))
 }
 #' @rdname GR
 #' @export
