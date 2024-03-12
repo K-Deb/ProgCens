@@ -4,14 +4,12 @@
 \alias{sim.pval}
 \title{Monte Carlo simulation of p-value}
 \usage{
-sim.pval(data, CDF, Time = Inf, k = 1, B = 10000, ...)
+sim.pval(data, CDF, k = 1, B = 10000, ...)
 }
 \arguments{
 \item{data}{A 2 by m matrix, containing failure times in first row and the progressive first-failure censoring scheme in second row}
 
 \item{CDF}{Cumulative distribution function}
-
-\item{Time}{Prefixed time point}
 
 \item{k}{Number of items in a group}
 
