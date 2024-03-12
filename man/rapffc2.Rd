@@ -8,7 +8,7 @@ rapffc2(
   n,
   m = NULL,
   k = 1,
-  Time,
+  Time = Inf,
   R = NULL,
   prob = NULL,
   CDF,

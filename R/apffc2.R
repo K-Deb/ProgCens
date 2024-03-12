@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-rapffc2 = function(n, m = NULL, k = 1, Time, R = NULL, prob = NULL, CDF, QF, ..., set_seed = NULL)
+rapffc2 = function(n, m = NULL, k = 1, Time = Inf, R = NULL, prob = NULL, CDF, QF, ..., set_seed = NULL)
 {
   if(!is.null(set_seed)) set.seed(set_seed)
   stopifnot("CDF must be a quantile function" = is.function(CDF))
