@@ -37,7 +37,7 @@ AdapGoF = function(data, CDF, k = 1, norm_approx = T, ...)
         sum(dd * pnorm(x, theta[1], theta[2], lower.tail = F, log.p = T), na.rm = T)
       return(-LL)
     }
-    mleY = optim(c(mean(Y), sd(Y)), negLLY, x = Y)$par
+    mleY = optim(c(mean(Y[!is.infinite(Y)], na.rm = T), sd(Y[!is.infinite(Y)], na.rm = T)), negLLY, x = Y)$par
     U = pnorm((Y - mleY[1])/mleY[2])
   }else
   {
