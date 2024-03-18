@@ -33,8 +33,9 @@ AdapGoF = function(data, CDF, k = 1, norm_approx = T, ...)
     negLLY = function(theta, x)
     {
       dd = (k * (R + 1)) - 1
-      LL = sum(dnorm(x, theta[1], theta[2], log = T), na.rm = T)+
-        sum(dd * pnorm(x, theta[1], theta[2], lower.tail = F, log.p = T), na.rm = T)
+      A = dnorm(x, theta[1], theta[2], log = T)
+      B = dd * pnorm(x, theta[1], theta[2], lower.tail = F, log.p = T)
+      LL = sum(A[!is.infinite(A)], na.rm = T) + sum(B[!is.infinite(B)], na.rm = T)
       return(-LL)
     }
     mleY = optim(c(mean(Y[!is.infinite(Y)], na.rm = T), sd(Y[!is.infinite(Y)], na.rm = T)), negLLY, x = Y)$par
