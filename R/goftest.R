@@ -45,10 +45,10 @@ AdapGoF = function(data, CDF, k = 1, norm_approx = T, ...)
     U = CDF(S, ...)
   }
 
-  stat_A <- stat_C <- Alpha <- rep(NA, m - 1)
+  stat_A <- stat_C <- Alpha <- vector(mode = "numeric", length = (m - 1))
   for (i in 1 : (m - 1)) {
     Prod1 <- 1
-    for (j in (m - i + 1) : m) Prod1 <- Prod1 * beta((j + sum(R[(m - j + 1) : (m)]) + (1/k)), 1)/beta((j + sum(R[(m - j + 1) : (m)])), 1)
+    for (j in (m - i + 1) : m) {Prod1 <- Prod1 * beta((j + sum(R[(m - j + 1) : (m)]) + (1/k)), 1)/beta((j + sum(R[(m - j + 1) : (m)])), 1)}
     Alpha[i] <- 1 - Prod1
     stat_A[i] <- Alpha[i]^2 * log(U[i + 1] * (1 - U[i])/(U[i] * (1 - U[i + 1]))) + 2 * Alpha[i] * log((1 - U[i + 1])/(1 - U[i]))
     stat_C[i] <- Alpha[i] * (U[i + 1] - U[i]) * (Alpha[i] - U[i + 1] - U[i])
