@@ -26,11 +26,12 @@ rapffc2 = function(n, m = NULL, k = 1, Time = Inf, R = NULL, prob = NULL, CDF, Q
   J = ifelse(!any(X1<Time), 0, max(which(X1<Time|X1 == Time)))
   if(J == 0)
   {
-    R2 = c(rep(0, (m-1)), n-m)
-    U = rpc2unif(n = n, m = m, R = R2, prob = NULL)
+    R2 = c(rep(0, (m - 1)), n - m)
+    U = rpc2unif(n = n - 1, m = m - 1, R = R2[(J+2) : m], prob = NULL)
     ORD = 1 - (1 - U[1,])^(1/k)
-    X2 = QF((CDF(Time, ...) +
-                ORD * (1 - CDF(Time, ...))), ...)
+    X2 = X1
+    X2[(J+2):m] = QF((CDF(X2[(J+1)], ...) +
+                        ORD * (1-CDF(X2[(J+1)], ...))), ...)
   }else
   {
     if(J + 1 == m)
