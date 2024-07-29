@@ -12,6 +12,7 @@ NULL
 #> NULL
 #' @return later
 #' @importFrom stats uniroot
+#' @importFrom lamW lambertWm1
 #' @export
 #'
 #' @examples
@@ -65,54 +66,22 @@ qgLindley = function (p, shape = 1, rate, lower.tail = TRUE, log.p = FALSE)
 {
   if (lower.tail) {
     if (log.p) {
-      Obj = function(x, shape, rate, p)
-      {
-        return(pgLindley(x, shape, rate) - exp(p))
-      }
-      qfun = c()
-      for(i in 1 : length(p))
-      {
-        qfun[i] = uniroot(Obj, interval = c(- 1e5, 1e5), shape = shape, rate = rate, p = p[i])$root
-      }
+      qfun = - 1 - (1/rate) - ((1/rate) * lambertWm1(- (1 + rate) * exp(- 1 - rate) * (1 - (exp(p)) ^ (1/shape))))
       qfun[p > 0] = NaN
     }
     else {
-      Obj = function(x, shape, rate, p)
-      {
-        return(pgLindley(x, shape, rate) - p)
-      }
-      qfun = c()
-      for(i in 1 : length(p))
-      {
-        qfun[i] = uniroot(Obj, interval = c(- 1e5, 1e5), shape = shape, rate = rate, p = p[i])$root
-      }
+      qfun = - 1 - (1/rate) - ((1/rate) * lambertWm1(- (1 + rate) * exp(- 1 - rate) * (1 - (p) ^ (1/shape))))
       qfun[p < 0] = NaN
       qfun[p > 1] = NaN
     }
   }
   else {
     if (log.p) {
-      Obj = function(x, shape, rate, p)
-      {
-        return(pgLindley(x, shape, rate, lower.tail = F) - exp(p))
-      }
-      qfun = c()
-      for(i in 1 : length(p))
-      {
-        qfun[i] = uniroot(Obj, interval = c(- 1e5, 1e5), shape = shape, rate = rate, p = p[i])$root
-      }
+      qfun = - 1 - (1/rate) - ((1/rate) * lambertWm1(- (1 + rate) * exp(- 1 - rate) * (1 - (1 - exp(p)) ^ (1/shape))))
       qfun[p > 0] = NaN
     }
     else {
-      Obj = function(x, shape, rate, p)
-      {
-        return(pgLindley(x, shape, rate, lower.tail = F) - p)
-      }
-      qfun = c()
-      for(i in 1 : length(p))
-      {
-        qfun[i] = uniroot(Obj, interval = c(- 1e5, 1e5), shape = shape, rate = rate, p = p[i])$root
-      }
+      qfun = - 1 - (1/rate) - ((1/rate) * lambertWm1(- (1 + rate) * exp(- 1 - rate) * (1 - (1 - p) ^ (1/shape))))
       qfun[p < 0] = NaN
       qfun[p > 1] = NaN
     }
