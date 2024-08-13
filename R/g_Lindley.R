@@ -41,20 +41,24 @@ pgLindley = function (q, shape = 1, rate, lower.tail = TRUE, log.p = FALSE)
     if (log.p) {
       distfun = shape * log1p(- ((1 + rate + (rate * q)) / (1 + rate)) * exp(- rate * q))
       distfun[q <= 0] = -Inf
+      distfun[q == Inf] = 0
     }
     else {
       distfun = (1 - (((1 + rate + (rate * q)) / (1 + rate)) * exp(- rate * q))) ^ shape
       distfun[q <= 0] = 0
+      distfun[q == Inf] = 1
     }
   }
   else {
     if (log.p) {
       distfun = log1p(- (1 - (((1 + rate + (rate * q)) / (1 + rate)) * exp(- rate * q))) ^ shape)
       distfun[q <= 0] = 0
+      distfun[q == Inf] = -Inf
     }
     else {
       distfun = 1 - (1 - (((1 + rate + (rate * q)) / (1 + rate)) * exp(- rate * q))) ^ shape
       distfun[q <= 0] = 1
+      distfun[q == Inf] = 0
     }
   }
   distfun[(shape < 0) | (rate < 0)] = NaN
