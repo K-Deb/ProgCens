@@ -23,6 +23,7 @@ dlcauchy = function(x, location = 0, scale = 1, log = F)
   denslog = dcauchy(log(x), location = location, scale = scale,
                     log = TRUE) - log(x)
   denslog[x < 0] = -Inf
+  denslog[x == 0] = Inf
   if(log)
   {
     return((denslog))

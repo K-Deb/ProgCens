@@ -5,7 +5,7 @@
 #' @param k Number of items in a group
 #' @param Time Prefixed time point
 #' @param R Prefixed censoring scheme
-#' @param non_zero Logical. {TRUE} if non-zero number of failures are required (default).
+#' @param non_zero Logical. \code{TRUE} if non-zero number of failures are required (default).
 #' @param prob Probability of removal
 #' @param QF Quantile function of the univariate distribution
 #' @param ... Further arguments to be passed to \code{CDF} and \code{QF}

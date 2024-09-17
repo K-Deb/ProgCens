@@ -28,7 +28,7 @@ rpffhc2(
 
 \item{R}{Prefixed censoring scheme}
 
-\item{non_zero}{Logical. {TRUE} if non-zero number of failures are required (default).}
+\item{non_zero}{Logical. \code{TRUE} if non-zero number of failures are required (default).}
 
 \item{prob}{Probability of removal}
 
