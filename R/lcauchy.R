@@ -18,7 +18,7 @@ NULL
 
 #' @rdname lc
 #' @export
-dlcauchy = function(x, location = 0, scale = 1, log = F)
+dlcauchy = function(x, location = 0, scale = 1, log = FALSE)
 {
   denslog = dcauchy(log(x), location = location, scale = scale,
                     log = TRUE) - log(x)
@@ -33,7 +33,7 @@ dlcauchy = function(x, location = 0, scale = 1, log = F)
 }
 #' @rdname lc
 #' @export
-plcauchy = function(q, location = 0, scale = 1, lower.tail = T, log.p = F)
+plcauchy = function(q, location = 0, scale = 1, lower.tail = T, log.p = FALSE)
 {
   if(lower.tail)
   {
@@ -60,7 +60,7 @@ plcauchy = function(q, location = 0, scale = 1, lower.tail = T, log.p = F)
 }
 #' @rdname lc
 #' @export
-qlcauchy = function(p, location = 0, scale = 1, lower.tail = T, log.p = F)
+qlcauchy = function(p, location = 0, scale = 1, lower.tail = T, log.p = FALSE)
 {
   if(lower.tail)
   {

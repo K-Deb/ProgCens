@@ -8,7 +8,7 @@
 \alias{rtruncauchy}
 \title{The Truncated Cauchy Distribution}
 \usage{
-dtruncauchy(x, location = 0, scale = 1, lower = 0, upper = Inf, log = F)
+dtruncauchy(x, location = 0, scale = 1, lower = 0, upper = Inf, log = FALSE)
 
 ptruncauchy(
   q,
@@ -16,8 +16,8 @@ ptruncauchy(
   scale = 1,
   lower = 0,
   upper = Inf,
-  lower.tail = T,
-  log.p = F
+  lower.tail = TRUE,
+  log.p = FALSE
 )
 
 qtruncauchy(
@@ -26,8 +26,8 @@ qtruncauchy(
   scale = 1,
   lower = 0,
   upper = Inf,
-  lower.tail = T,
-  log.p = F
+  lower.tail = TRUE,
+  log.p = FALSE
 )
 
 rtruncauchy(n, location = 0, scale = 1)

@@ -8,11 +8,11 @@
 \alias{rlcauchy}
 \title{The Log Cauchy Distribution}
 \usage{
-dlcauchy(x, location = 0, scale = 1, log = F)
+dlcauchy(x, location = 0, scale = 1, log = FALSE)
 
-plcauchy(q, location = 0, scale = 1, lower.tail = T, log.p = F)
+plcauchy(q, location = 0, scale = 1, lower.tail = T, log.p = FALSE)
 
-qlcauchy(p, location = 0, scale = 1, lower.tail = T, log.p = F)
+qlcauchy(p, location = 0, scale = 1, lower.tail = T, log.p = FALSE)
 
 rlcauchy(n, location = 0, scale = 1)
 }

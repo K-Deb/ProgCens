@@ -20,7 +20,7 @@ NULL
 
 #' @rdname trunc
 #' @export
-dtruncauchy <- function(x, location = 0, scale = 1, lower = 0, upper = Inf, log = F)
+dtruncauchy <- function(x, location = 0, scale = 1, lower = 0, upper = Inf, log = FALSE)
 {
   denslog = dcauchy(x, location = location, scale = scale, log = T) - log(pcauchy(upper, location = location, scale = scale) - pcauchy(lower, location = location, scale = scale))
   denslog[x < 0] <- -Inf
@@ -33,7 +33,7 @@ dtruncauchy <- function(x, location = 0, scale = 1, lower = 0, upper = Inf, log 
 }
 #' @rdname trunc
 #' @export
-ptruncauchy <- function(q, location = 0, scale = 1, lower = 0, upper = Inf, lower.tail = T, log.p = F)
+ptruncauchy <- function(q, location = 0, scale = 1, lower = 0, upper = Inf, lower.tail = TRUE, log.p = FALSE)
 {
   if(lower.tail)
   {
@@ -60,7 +60,7 @@ ptruncauchy <- function(q, location = 0, scale = 1, lower = 0, upper = Inf, lowe
 }
 #' @rdname trunc
 #' @export
-qtruncauchy <- function(p, location = 0, scale = 1, lower = 0, upper = Inf, lower.tail = T, log.p = F)
+qtruncauchy <- function(p, location = 0, scale = 1, lower = 0, upper = Inf, lower.tail = TRUE, log.p = FALSE)
 {
   if (lower.tail) {
     if (log.p) {
