@@ -1,4 +1,4 @@
-#' Quantiles of Progressive First-failure Censored Order Statistics
+#' Quantile Function of Progressive First-failure Censored Order Statistics
 #'
 #' @param p Vector of quantiles
 #' @param n Number of experimental groups
@@ -53,7 +53,7 @@ qpffc2 <- function(p = c(0.5, 0.75), n, m, k = 1, R, order, QF, ...)
   quan <- NA
   for(i in 1 : length(p))
   {
-    quan[i] <- uniroot(Obj, interval = c(0, 1), p = p[i])$root
+    quan[i] <- uniroot(Obj, interval = c(0, 1), p = p[i], extendInt = "yes", maxiter = 1e5)$root
   }
   return(QF(quan, ...))
 }
