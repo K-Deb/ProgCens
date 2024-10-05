@@ -2,30 +2,32 @@
 % Please edit documentation in R/PFFCQuantile.R
 \name{qpffc2}
 \alias{qpffc2}
-\title{Quantiles of Progressive First-failure Censored Order Statistics}
+\title{Quantile Function of Progressive First-failure Censored Order Statistics}
 \usage{
-qpffc2(p = c(0.5, 0.75), n, m, k = 1, R, order, QF, ...)
+qpffc2(p = seq(0, 1, 0.25), n, m, k = 1, R, order, QF, ..., precBits = 1024)
 }
 \arguments{
-\item{p}{Vector of quantiles}
+\item{p}{probabilities}
 
-\item{n}{Number of experimental groups}
+\item{n}{number of experimental groups}
 
-\item{m}{Number of failures}
+\item{m}{desired number of failures}
 
-\item{k}{group size}
+\item{k}{group sizes}
 
-\item{R}{Progressive censoring scheme}
+\item{R}{progressive censoring scheme}
 
-\item{order}{order of the progressive first-failure censored order statistics}
+\item{order}{order of the progressive first-failure censored order statistic}
 
-\item{QF}{Quantile function of the distribution}
+\item{QF}{quantile function of the distribution}
 
-\item{...}{Additional arguments to be passed from the quantile of the distribution}
+\item{...}{additional arguments to be passed to \code{QF}}
+
+\item{precBits}{same as \code{Rmpfr}}
 }
 \value{
-later
+Later
 }
 \description{
-Quantiles of Progressive First-failure Censored Order Statistics
+Quantile Function of Progressive First-failure Censored Order Statistics
 }

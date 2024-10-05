@@ -1,50 +1,32 @@
 #' Quantile Function of Progressive First-failure Censored Order Statistics
 #'
-#' @param p Vector of quantiles
-#' @param n Number of experimental groups
-#' @param m Number of failures
-#' @param k group size
-#' @param R Progressive censoring scheme
-#' @param order order of the progressive first-failure censored order statistics
-#' @param QF Quantile function of the distribution
-#' @param ... Additional arguments to be passed from the quantile of the distribution
+#' @param p probabilities
+#' @param n number of experimental groups
+#' @param m desired number of failures
+#' @param k group sizes
+#' @param R progressive censoring scheme
+#' @param order order of the progressive first-failure censored order statistic
+#' @param QF quantile function of the distribution
+#' @param ... additional arguments to be passed to \code{QF}
+#' @param precBits same as \code{Rmpfr}
 #'
-#' @return later
-#' @importFrom stats uniroot na.omit
+#' @return Later
+#' @importFrom stats uniroot
+#' @importFrom Rmpfr mpfr outer colSums apply
 #' @export
 #'
 #' @examples
-qpffc2 <- function(p = c(0.5, 0.75), n, m, k = 1, R, order, QF, ...)
+qpffc2 <- function(p = seq(0, 1, 0.25), n, m, k = 1, R, order, QF, ..., precBits = 1024)
 {
-  gam <- NA
-  Cr <- NA
-  for(i in 1 : order)
-  {
-    gam[i] <- m - i + 1 + sum(R[i : m])
-  }
-  for(i in 1 : order)
-  {
-    Cr[i] <- prod(gam[1 : i])
-  }
-  air <- array(dim = c(order, order))
-  for(i in 1 : order)
-  {
-    for (j in 1 : order) {
-
-      if(i != j)
-      {
-        air[i, j] <- 1/(gam[j] - gam[i])
-      }
-    }
-  }
-  A <- NA
-  for(i in 1 : order)
-  {
-    A[i] = prod(na.omit(air[i,]))
-  }
+  gam <- mpfr(rev(cumsum(R[m : 1]))[1 : order] + (m : (m - order + 1)), precBits = precBits)
+  Cr <- cumprod(gam)
+  air <- t(1/outer(gam, gam, "-"))
+  diag(air) <- 1
+  A <- apply(air, 1, prod)
+  diag(air) <- NA
   progU_CDF <- function(u)
   {
-    1 - (Cr[order] * sum((A/gam) * ((1 - u)^(k * gam))))
+    as.numeric(1 - (Cr[order] * colSums((A/gam) * outer(k * gam, 1 - u, \(x, y) y ^ x))))
   }
   Obj  <- function(x, p)
   {
